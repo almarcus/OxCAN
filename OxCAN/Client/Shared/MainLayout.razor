@@ -10,8 +10,8 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudText Typo="Typo.h5" Class="ml-3">Oxford Community Action Network</MudText>
         <MudSpacer />
-        <MudToggleIconButton @bind-Toggled="@_isDarkMode" Icon="@Icons.TwoTone.WbSunny" Color="Color.Warning" 
-                    ToggledIcon="@Icons.TwoTone.ModeNight" ToggledColor="@Color.Primary" Class="ma-4" T="bool"/>
+        <MudToggleIconButton @bind-Toggled="@_isDarkMode" Icon="@Icons.TwoTone.LightMode" Color="Color.Warning" 
+                    ToggledIcon="@Icons.TwoTone.DarkMode" ToggledColor="@Color.Primary" Class="ma-4" T="bool"/>
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
         <NavMenu />
