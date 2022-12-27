@@ -1,0 +1,29 @@
+@page "/contact"
+
+<PageTitle>Contact</PageTitle>
+
+<MudContainer Class="mt-16" MaxWidth="MaxWidth.Medium">
+    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">We need to talk.</MudText>
+    <MudGrid Spacing="6" Class="mt-16">
+        <MudItem >
+            <MudText Typo="Typo.body1" GutterBottom="true">We want to start the conversation, and start it in a broad way. Everywhere we turn, we see like-minded people wondering how they can get involved with making public green spaces more public, and how they can work to connect those destinations to their neighborhood. Tell us how you’d like to help- let’s start talking!</MudText>
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudTextField T="string" Label="Email" />
+                </MudItem>
+                <MudItem xs="6">
+                    <MudTextField T="string" Label="First name" />
+                </MudItem>
+                <MudItem xs="6">
+                    <MudTextField T="string" Label="Last name" />
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField T="string" Label="Phone number" />
+                </MudItem>
+                <MudItem xs="12" Class="d-flex justify-center">
+                    <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary" Size="Size.Large" Class="mt-8">Continue to Payment</MudButton>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
