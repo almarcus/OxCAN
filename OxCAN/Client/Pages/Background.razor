@@ -1,0 +1,45 @@
+@page "/background"
+@using OxCAN.Shared.Models
+@inject HttpClient Http
+
+<PageTitle>Background Information</PageTitle>
+
+<MudContainer Class="mt-16" MaxWidth="MaxWidth.Large">
+    <MudText Typo="Typo.h1" Align="Align.Center" GutterBottom="true">Background</MudText>
+
+    <MudGrid Spacing="6" Class="mt-16">
+        <MudItem>
+            <MudText Typo="Typo.body1">
+                We’ve got plans. In fact, we’ve had plans. And they are pretty good plans. OxCAN is about partnering partnering with our City so that together we can act on these plans. When it’s appropriate, create new plans that Oxford’s Communities can really get behind.
+            </MudText>
+        </MudItem>
+        <MudItem>
+            <MudText Typo="Typo.body1">
+                Here are some things that have been in the works:
+            </MudText>
+        </MudItem>
+
+        @if (projects == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            @foreach (var project in projects)
+            {
+                <MudItem>
+                    <MudText Typo="Typo.body1">@project.Name</MudText>
+                </MudItem>
+            }
+        } 
+
+    </MudGrid>
+</MudContainer>
+
+@code {
+    private Project[]? projects;
+
+    protected override async Task OnInitializedAsync()
+    {
+        projects = await Http.GetFromJsonAsync<Project[]>("BackgroundInfo");
+    }}
