@@ -1,29 +1,76 @@
 @page "/contact"
+@using OxCAN.Shared.Models
+@inject HttpClient Http
+@inject ISnackbar Snackbar
 
-<PageTitle>Contact</PageTitle>
+
+<PageTitle>Contact Us</PageTitle>
 
 <MudContainer Class="mt-16" MaxWidth="MaxWidth.Small">
     <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">We need to talk.</MudText>
     <MudGrid Spacing="6" Class="mt-12">
-        <MudItem >
+        <MudItem>
             <MudText Typo="Typo.body1" GutterBottom="true">We want to start the conversation, and start it in a broad way. Everywhere we turn, we see like-minded people wondering how they can get involved with making public green spaces more public, and how they can work to connect those destinations to their neighborhood. Tell us how you’d like to help- let’s start talking!</MudText>
-            <MudGrid>
-                <MudItem xs="6">
-                    <MudTextField T="string" Label="First name" />
-                </MudItem>
-                <MudItem xs="6">
-                    <MudTextField T="string" Label="Last name" />
-                </MudItem>
-                <MudItem xs="6">
-                    <MudTextField T="string" Label="Email" />
-                </MudItem>
-                <MudItem xs="6">
-                    <MudTextField T="string" Label="Phone number" />
-                </MudItem>
-                <MudItem xs="12" Class="d-flex justify-center">
-                    <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary" Size="Size.Large" Class="mt-8" StartIcon="@Icons.Filled.Send">Submit</MudButton>
-                </MudItem>
-            </MudGrid>
         </MudItem>
     </MudGrid>
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudGrid Spacing="6">
+        <MudItem xs="12">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Clearable="true" Label="First Name" @bind-Value="model.FirstName" For="@(() => model.FirstName)" />
+                    <MudTextField Clearable="true" Label="Last Name" @bind-Value="model.LastName" For="@(() => model.LastName)" />
+                    <MudTextField Clearable="true" Label="Email" @bind-Value="model.Email" For="@(() => model.Email)" />
+                    <MudTextField Clearable="true" Label="Phone Number" @bind-Value="model.PhoneNumber" For="@(() => model.PhoneNumber)" Mask="@(new PatternMask("(000) 000-0000"))"/>
+                    <MudTextField Clearable="true" Label="What are we missing? Let us know!" @bind-Value="model.Missing" For="@(() => model.Missing)"/>
+                    <MudItem Class="mt-6">
+                        <MudText><b>How can you help?</b></MudText>
+                        <MudSwitch Label="Become a neighborhood advocate" @bind-Checked="model.NeighborhoodAdvocate" For="@(() => model.NeighborhoodAdvocate)" Color="Color.Primary"/>
+                        <MudSwitch Label="Attend city meetings for board/committees/commissions" @bind-Checked="model.AttendMeetings" For="@(() => model.AttendMeetings)" Color="Color.Primary"/>
+                        <MudSwitch Label="Introduce OxC.A.N. to your civic group" @bind-Checked="model.HelpIntroduceOxCAN" For="@(() => model.HelpIntroduceOxCAN)" Color="Color.Primary"/>
+                        <MudSwitch Label="Help build and maintain greenways in Oxford" @bind-Checked="model.HelpBuildGreenways" For="@(() => model.HelpBuildGreenways)" Color="Color.Primary"/>
+                        <MudSwitch Label="Send emails and make phone calls" @bind-Checked="model.HelpSendEmailsAndCalls" For="@(() => model.HelpSendEmailsAndCalls)" Color="Color.Primary"/>
+                        <MudSwitch Label="Be a volunteer coordinator" @bind-Checked="model.HelpCoordinateVolunteers" For="@(() => model.HelpCoordinateVolunteers)" Color="Color.Primary"/>
+                        <MudSwitch Label="Donate green space for public use" @bind-Checked="model.DonateGreenspace" For="@(() => model.DonateGreenspace)" Color="Color.Primary"/>
+                        <MudSwitch Label="Donate other time or talents" @bind-Checked="model.DonateOther" For="@(() => model.DonateOther)" Color="Color.Primary"/>
+                    </MudItem>
+
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined" OverrideStyles="false" Class="ml-auto">
+                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.Send">Register</MudButton>
+                        <MudButton Variant="Variant.Filled" Color="Color.Secondary" @onclick="ResetForm" StartIcon="@Icons.Filled.ClearAll">Reset</MudButton>
+                    </MudButtonGroup>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
 </MudContainer>
+
+
+@code {
+    OxCAN.Shared.Models.Contact model = new OxCAN.Shared.Models.Contact();
+    bool success;
+
+
+    private async Task OnValidSubmit()
+    {
+        
+        var response = await Http.PostAsJsonAsync("Contact", model);
+
+        if(response.IsSuccessStatusCode)
+            Snackbar.Add("Contact info successfully submitted", Severity.Success);
+        else
+            Snackbar.Add("Error submitting contact info", Severity.Error);
+
+        StateHasChanged();
+
+    }
+
+    private async Task ResetForm()
+    {
+        model = new();
+    }
+}
