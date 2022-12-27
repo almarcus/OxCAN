@@ -22,6 +22,6 @@ public class BackgroundInfoController : ControllerBase
     [HttpGet]
     public IEnumerable<Project> Get()
     {
-        return _projectService.Get().ToArray();
+        return _projectService.Get();
     }
 }
