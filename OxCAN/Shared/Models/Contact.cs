@@ -20,7 +20,7 @@ public class Contact
     [EmailAddress(ErrorMessage = "Email is not a valid email address")]
     public string Email {get; set;}
 
-    public string Missing {get; set;}
+    public string? Missing {get; set;}
 
     public bool NeighborhoodAdvocate {get; set;}
     public bool AttendMeetings {get; set;}
