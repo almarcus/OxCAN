@@ -30,7 +30,7 @@
             @foreach (var project in projects)
             {
                 <MudItem xs="12">
-                    <MudText Typo="Typo.body1">@project.Display (<MudLink Href="@project.Link" Target="_blank">Link</MudLink>)</MudText>
+                    <MudListItem Icon="@Icons.TwoTone.CheckBox" IconColor=Color.Tertiary>@project.Display (<MudLink Href="@project.Link" Target="_blank">Link</MudLink>)</MudListItem>
                 </MudItem>
             }
         }
