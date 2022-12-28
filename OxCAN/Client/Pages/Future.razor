@@ -1,35 +1,33 @@
 @page "/future"
 @using OxCAN.Shared.Models
+@using OxCAN.Components
 @inject HttpClient Http
 <PageTitle>Future Work</PageTitle>
 
-<MudContainer Class="mt-auto" MaxWidth="MaxWidth.Large">
+<MudContainer>
     <MudText Typo="Typo.h1" Align="Align.Center" GutterBottom="true">Future Projects</MudText>
 
-    <MudGrid Spacing="6" Class="mt-auto">
+    <MudGrid >
         <MudItem>
             <MudText Typo="Typo.body1">
-We’re depositing any projects that the Oxford community brings to us. Some will work, some may not, but let’s bring it all to the table. Click on any of the project titles to send us an email with feedback on that subject!            </MudText>
+                We’re depositing any projects that the Oxford community brings to us. Some will work, some may not, but let’s bring it all to the table. Click on any of the project titles to send us an email with feedback on that subject!
+            </MudText>
         </MudItem>
 
         @if (futureProjects == null)
         {
-            <MudItem xs="12">
+            <MudItem>
                 <MudText Typo="Typo.body1">Loading Project List...</MudText>
             </MudItem>        
         }
         else
         {
-            @foreach (var project in futureProjects)
-            {
-                <MudItem xs="6">
-                    <MudImage ObjectFit="ObjectFit.Contain" Fluid="true" Src="@project.ImageLink" />
-                </MudItem>
-                <MudItem xs="6">
-                    <MudLink Typo="Typo.h4"Href="@project.MailToLink" Target="_blank">@project.Name</MudLink>
-                    <MudText Typo="Typo.body1">@project.Description</MudText>
-                </MudItem>
-            }
+                @foreach (var project in futureProjects)
+                {
+                    <MudItem xs="12" sm="6" md="4">
+                        <FutureCard Project=@project />
+                    </MudItem>
+                }
         }
     </MudGrid>
 </MudContainer>
