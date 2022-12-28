@@ -17,21 +17,21 @@
             <MudCard>
                 <MudCardContent>
                     <MudGrid>
-                    <MudItem xs="12" lg="6">
-                        <MudTextField Clearable="true" Label="First Name" @bind-Value="model.FirstName" For="@(() => model.FirstName)" />
-                    </MudItem>
-                    <MudItem xs="12" lg="6">
-                        <MudTextField Clearable="true" Label="Last Name" @bind-Value="model.LastName" For="@(() => model.LastName)" />
-                    </MudItem>
-                    <MudItem xs="12" lg="6">
-                        <MudTextField Clearable="true" Label="Email" @bind-Value="model.Email" For="@(() => model.Email)" />
-                    </MudItem>
-                    <MudItem xs="12" lg="6">
-                        <MudTextField Clearable="true" Label="Phone Number" @bind-Value="model.PhoneNumber" For="@(() => model.PhoneNumber)" Mask="@(new PatternMask("(000) 000-0000"))"/>
-                    </MudItem>
-                    <MudItem xs="12">
-                        <MudTextField Clearable="true" Label="What are we missing? Let us know!" @bind-Value="model.Missing" For="@(() => model.Missing)"/>
-                    </MudItem>
+                        <MudItem xs="12" lg="6">
+                            <MudTextField Clearable="true" Label="First Name" @bind-Value="model.FirstName" For="@(() => model.FirstName)" />
+                        </MudItem>
+                        <MudItem xs="12" lg="6">
+                            <MudTextField Clearable="true" Label="Last Name" @bind-Value="model.LastName" For="@(() => model.LastName)" />
+                        </MudItem>
+                        <MudItem xs="12" lg="6">
+                            <MudTextField Clearable="true" Label="Email" @bind-Value="model.Email" For="@(() => model.Email)" />
+                        </MudItem>
+                        <MudItem xs="12" lg="6">
+                            <MudTextField Clearable="true" Label="Phone Number" @bind-Value="model.PhoneNumber" For="@(() => model.PhoneNumber)" Mask="@(new PatternMask("(000) 000-0000"))"/>
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Clearable="true" Label="What are we missing? Let us know!" @bind-Value="model.Missing" For="@(() => model.Missing)"/>
+                        </MudItem>
                     </MudGrid>
                     <MudGrid Class="mt-6">
                         <MudItem xs="12">
