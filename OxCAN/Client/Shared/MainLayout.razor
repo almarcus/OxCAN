@@ -1,6 +1,7 @@
 ﻿@inherits LayoutComponentBase
+@inject Blazored.LocalStorage.ILocalStorageService localStore
 
-<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme"/>
+<MudThemeProvider IsDarkMode="@_isDarkMode" Theme="_theme"/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
 
@@ -10,7 +11,7 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudText Typo="Typo.h5" Class="ml-3">Oxford Community Action Network</MudText>
         <MudSpacer />
-        <MudToggleIconButton @bind-Toggled="@_isDarkMode" Icon="@Icons.TwoTone.LightMode" Color="Color.Warning" 
+        <MudToggleIconButton ToggledChanged="@ToggleDarkMode" Icon="@Icons.TwoTone.LightMode" Color="Color.Warning" 
                     ToggledIcon="@Icons.TwoTone.DarkMode" ToggledColor="@Color.Primary" Class="ma-4" T="bool"/>
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
@@ -39,5 +40,18 @@
     void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
+    }
+
+    public void ToggleDarkMode(bool toggled)
+    {
+        _isDarkMode = toggled;
+        localStore.SetItemAsync("isDarkMode",_isDarkMode);
+    }
+
+    protected override void OnInitialized()
+    {
+        var _isDarkMode = localStore.GetItemAsync<bool>("isDarkMode");
+        StateHasChanged();
+
     }
 }
