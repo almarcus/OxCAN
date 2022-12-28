@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using OxCAN.Client;
 using MudBlazor.Services;
 using MudBlazor;
+using Blazored.LocalStorage;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -19,6 +20,8 @@ builder.Services.AddMudServices(config =>
     config.SnackbarConfiguration.ShowTransitionDuration = 1;
     config.SnackbarConfiguration.SnackbarVariant = Variant.Outlined;
 });
+
+builder.Services.AddBlazoredLocalStorage();
 
 
 await builder.Build().RunAsync();
