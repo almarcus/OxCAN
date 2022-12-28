@@ -1,0 +1,18 @@
+@namespace OxCAN.Components
+@using OxCAN.Shared.Models
+
+<MudCard Class="mt-6">
+    <MudCardMedia Image="@Project.ImageLink" />
+    <MudCardContent>
+        <MudText Typo="Typo.h5">@Project.Name</MudText>
+        <MudText Typo="Typo.body2">@Project.Description</MudText>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Href="@Project.MailToLink" Variant="Variant.Filled" StartIcon="@Icons.TwoTone.Email" Color="Color.Primary">Contact Us</MudButton>
+    </MudCardActions>
+</MudCard>
+
+@code {
+    [Parameter]
+    public Project Project {get; set;}
+}
