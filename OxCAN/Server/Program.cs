@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IContactService, ContactService>();
 
@@ -17,6 +18,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
+
 }
 else
 {
@@ -32,7 +34,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Blazor API V1");
+    });
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
