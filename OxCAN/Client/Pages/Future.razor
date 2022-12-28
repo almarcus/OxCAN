@@ -1,5 +1,6 @@
 @page "/future"
 @using OxCAN.Shared.Models
+@using OxCAN.Components
 @inject HttpClient Http
 <PageTitle>Future Work</PageTitle>
 
@@ -22,19 +23,10 @@
         else
         {
             <MudContainer MaxWidth="MaxWidth.Medium">
-            @foreach (var project in futureProjects)
-            {
-                <MudCard Class="mt-6">
-                    <MudCardMedia Image="@project.ImageLink" />
-                    <MudCardContent>
-                        <MudText Typo="Typo.h5">@project.Name</MudText>
-                        <MudText Typo="Typo.body2">@project.Description</MudText>
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton Href="@project.MailToLink" Variant="Variant.Filled" StartIcon="@Icons.TwoTone.Email" Color="Color.Primary">Contact Us</MudButton>
-                    </MudCardActions>
-                </MudCard>
-            }
+                @foreach (var project in futureProjects)
+                {
+                    <FutureCard Project=@project />
+                }
             </MudContainer>
         }
     </MudGrid>
