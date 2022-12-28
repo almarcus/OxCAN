@@ -48,10 +48,12 @@
         localStore.SetItemAsync("isDarkMode",_isDarkMode);
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var _isDarkMode = localStore.GetItemAsync<bool>("isDarkMode");
-        StateHasChanged();
-
+        if (firstRender)
+        {
+            _isDarkMode = await localStore.GetItemAsync<bool>("isDarkMode");
+            StateHasChanged();
+        }
     }
 }
