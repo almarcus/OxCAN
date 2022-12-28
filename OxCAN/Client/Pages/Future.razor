@@ -22,12 +22,12 @@
         }
         else
         {
-            <MudContainer MaxWidth="MaxWidth.Medium">
                 @foreach (var project in futureProjects)
                 {
-                    <FutureCard Project=@project />
+                    <MudItem xs="12" sm="6" md="4">
+                        <FutureCard Project=@project />
+                    </MudItem>
                 }
-            </MudContainer>
         }
     </MudGrid>
 </MudContainer>
