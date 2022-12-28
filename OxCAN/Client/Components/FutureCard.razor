@@ -8,7 +8,11 @@
         <MudText Typo="Typo.body2">@Project.Description</MudText>
     </MudCardContent>
     <MudCardActions>
-        <MudButton Href="@Project.MailToLink" Variant="Variant.Filled" StartIcon="@Icons.TwoTone.Email" Color="Color.Primary">Contact Us</MudButton>
+        <MudButton Href="@Project.MailToLink" Variant="Variant.Text" Color="Color.Primary">Contact Us</MudButton>
+        @if(@Project.Link != null)
+        {
+            <MudButton Href="@Project.Link" Target="_blank" Variant="Variant.Text" Color="Color.Primary">Learn More</MudButton>
+        }
     </MudCardActions>
 </MudCard>
 
