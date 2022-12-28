@@ -22,8 +22,12 @@ We’re depositing any projects that the Oxford community brings to us. Some wil
         {
             @foreach (var project in futureProjects)
             {
-                <MudItem xs="12">
-                    <MudText Typo="Typo.body1">@project.Display (<MudLink Href="@project.Link" Target="_blank">Link</MudLink>)</MudText>
+                <MudItem xs="6">
+                    <MudImage ObjectFit="ObjectFit.Contain" Fluid="true" Src="@project.ImageLink" />
+                </MudItem>
+                <MudItem xs="6">
+                    <MudLink Typo="Typo.h4"Href="@project.MailToLink" Target="_blank">@project.Name</MudLink>
+                    <MudText Typo="Typo.body1">@project.Description</MudText>
                 </MudItem>
             }
         }

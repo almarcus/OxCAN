@@ -15,6 +15,8 @@ public class Project
     public Status ProjectStatus {get; set;}
     public string? ImageLink {get; set;}
     public string? Description {get; set;}
+
+    public string? MailToLink => $"mailto:everyone@oxfordcan.org?subject={Name}";
     public string? Display => $"{Name}, from {Timeframe}";
 
 }
