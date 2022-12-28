@@ -1,11 +1,11 @@
-@page "/background"
+@page "/past"
 @using OxCAN.Shared.Models
 @inject HttpClient Http
 
 <PageTitle>Background Information</PageTitle>
 
 <MudContainer Class="mt-auto" MaxWidth="MaxWidth.Large">
-    <MudText Typo="Typo.h1" Align="Align.Center" GutterBottom="true">Background</MudText>
+    <MudText Typo="Typo.h1" Align="Align.Center" GutterBottom="true">Past Projects</MudText>
 
     <MudGrid Spacing="6" Class="mt-auto">
         <MudItem>
@@ -30,7 +30,7 @@
             @foreach (var project in projects)
             {
                 <MudItem xs="12">
-                    <MudText Typo="Typo.body1">@project.Display (<MudLink Href="@project.Link">Link</MudLink>)</MudText>
+                    <MudText Typo="Typo.body1">@project.Display (<MudLink Href="@project.Link" Target="_blank">Link</MudLink>)</MudText>
                 </MudItem>
             }
         }
@@ -42,5 +42,5 @@
 
     protected override async Task OnInitializedAsync()
     {
-        projects = await Http.GetFromJsonAsync<Project[]>("BackgroundInfo");
+        projects = await Http.GetFromJsonAsync<Project[]>("Projects/Previous");
     }}

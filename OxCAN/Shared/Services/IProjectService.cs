@@ -4,5 +4,5 @@ namespace OxCAN.Shared.Services;
 
 public interface IProjectService
 {
-    IEnumerable<Project> Get();
+    IEnumerable<Project> Get(Project.Status status);
 }
