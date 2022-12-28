@@ -8,14 +8,13 @@
 
 <MudContainer Class="mt-16" MaxWidth="MaxWidth.Small">
     <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">We need to talk.</MudText>
-    <MudGrid Spacing="6" Class="mt-12">
+    <MudGrid Class="mt-12">
         <MudItem>
             <MudText Typo="Typo.body1" GutterBottom="true">We want to start the conversation, and start it in a broad way. Everywhere we turn, we see like-minded people wondering how they can get involved with making public green spaces more public, and how they can work to connect those destinations to their neighborhood. Tell us how you’d like to help- let’s start talking!</MudText>
         </MudItem>
     </MudGrid>
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
-    <MudGrid Spacing="6">
         <MudItem xs="12">
             <MudCard>
                 <MudCardContent>
@@ -45,7 +44,6 @@
                 </MudCardActions>
             </MudCard>
         </MudItem>
-    </MudGrid>
 </EditForm>
 </MudContainer>
 
