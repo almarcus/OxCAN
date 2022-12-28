@@ -13,7 +13,7 @@ public class Project
     public string? Name {get; set;}
     public string? Timeframe {get; set;}
     public Status ProjectStatus {get; set;}
-    public string? ImageLink {get; set;}
+    public string? ImageLink {get; set;} = "images/logo.png";
     public string? Description {get; set;}
 
     public string? MailToLink => $"mailto:everyone@oxfordcan.org?subject={Name}";
