@@ -1,8 +1,10 @@
 ﻿<MudNavMenu>
-    <MudNavLink Href="/" Match=NavLinkMatch.All>Home</MudNavLink>
-    <MudNavLink Href="welcome">Hi</MudNavLink>
-    <MudNavLink Href="about">What We're About</MudNavLink>
-    <MudNavLink Href="contact">Let's Talk</MudNavLink>
-    <MudNavLink Href="past">Past Projects</MudNavLink>
-    <MudNavLink Href="future">Future Projects</MudNavLink>
+    <MudNavLink Icon="@Icons.TwoTone.Home" Href="/" Match=NavLinkMatch.All>Home</MudNavLink>
+    <MudNavLink Icon="@Icons.TwoTone.WavingHand" Href="welcome">Hi</MudNavLink>
+    <MudNavLink Icon="@Icons.TwoTone.Info" Href="about">What We're About</MudNavLink>
+    <MudNavLink Icon="@Icons.TwoTone.Chat" Href="contact">Let's Talk</MudNavLink>
+    <MudNavGroup Icon="@Icons.TwoTone.ListAlt" Title="Projects">
+        <MudNavLink Href="past">Past</MudNavLink>
+        <MudNavLink Href="future">Future</MudNavLink>
+    </MudNavGroup>
 </MudNavMenu>
