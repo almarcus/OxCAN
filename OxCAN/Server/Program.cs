@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.ResponseCompression;
+using OxCAN.Shared.Repositories;
 using OxCAN.Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,13 +11,24 @@ builder.Services.AddRazorPages();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddScoped<IContactRepository, MongoContactRepository>();
 
+builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
+{
+	options.SerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+});
+builder.Services.Configure<Microsoft.AspNetCore.Mvc.JsonOptions>(options =>
+{
+	options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+});
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI();
     app.UseWebAssemblyDebugging();
 
 }
@@ -34,11 +46,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Blazor API V1");
-    });
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
