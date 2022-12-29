@@ -1,4 +1,5 @@
 using OxCAN.Shared.Models;
+using Microsoft.Extensions.Logging;
 
 namespace OxCAN.Shared.Services;
 
@@ -18,8 +19,16 @@ public class ProjectService : IProjectService
         new Project{ Name = "Treasures of Joy Greenway", Link="https://oxfordcan.org/wp-content/uploads/2022/11/OrangeStreet.pdf", ProjectStatus=Project.Status.Future},
     };
 
+    private readonly ILogger<ProjectService> _logger;
+
+    public ProjectService(ILogger<ProjectService> logger)
+    {
+        _logger = logger;
+    }
+
     public IEnumerable<Project> Get(Project.Status status)
     {
+        _logger.LogInformation($"Getting projects of status: {status}");
         return allProjects.Where(x => x.ProjectStatus == status);
     }
 }
