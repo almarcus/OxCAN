@@ -1,7 +1,6 @@
 using OxCAN.Shared.Models;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
-using MongoDB.Bson;
 
 namespace OxCAN.Shared.Repositories;
 
