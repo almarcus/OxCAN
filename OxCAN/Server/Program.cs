@@ -39,7 +39,10 @@ builder.Services.AddSwaggerGen(option =>
 });
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 builder.Services.AddScoped<IContactRepository, MongoContactRepository>();
+builder.Services.AddScoped<IUserRepository, MongoUserRepository>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
