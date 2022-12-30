@@ -42,5 +42,5 @@
 
     protected override async Task OnInitializedAsync()
     {
-        projects = await Http.GetFromJsonAsync<Project[]>("Projects/Previous");
+        projects = await Http.GetFromJsonAsync<Project[]>($"Projects/{Project.Status.Past}");
     }}
