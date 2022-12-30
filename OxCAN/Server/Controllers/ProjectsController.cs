@@ -19,17 +19,9 @@ public class ProjectsController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet]
-    [Route("Previous")]
-    public IEnumerable<Project> GetPrevious()
+    [HttpGet("{status}")]
+    public IEnumerable<Project> Get(Project.Status status)
     {
-        return _projectService.Get(Project.Status.Past);
-    }
-
-    [HttpGet]
-    [Route("Future")]
-    public IEnumerable<Project> GetFuture()
-    {
-        return _projectService.Get(Project.Status.Future);
+        return _projectService.Get(status);
     }
 }
