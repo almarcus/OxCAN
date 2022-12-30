@@ -22,10 +22,17 @@ public class MongoContactRepository : IContactRepository
 
     public Contact Save(Contact contact)
     {
-        var collection = _database.GetCollection<Contact> ("Contact");
+        var collection = _database.GetCollection<Contact>("Contact");
 
         collection.InsertOne(contact);
 
         return contact;
+    }
+
+    public IEnumerable<Contact> Get()
+    {
+        var collection = _database.GetCollection<Contact>("Contact");
+
+        return collection.AsQueryable<Contact>();
     }
 }

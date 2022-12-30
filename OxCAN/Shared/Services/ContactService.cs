@@ -1,3 +1,4 @@
+using MongoDB.Driver;
 using OxCAN.Shared.Models;
 using OxCAN.Shared.Repositories;
 
@@ -16,5 +17,10 @@ public class ContactService : IContactService
     public void Submit(Contact contact)
     {
         _contactRepository.Save(contact);
+    }
+
+    public IEnumerable<Contact> Get()
+    {
+        return _contactRepository.Get();
     }
 }

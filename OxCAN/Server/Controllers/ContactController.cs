@@ -1,4 +1,5 @@
 using System.Collections;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OxCAN.Shared.Models;
 using OxCAN.Shared.Services;
@@ -25,5 +26,12 @@ public class ContactController : ControllerBase
         _contactService.Submit(contact);
 
         return Ok(contact);
+    }
+
+    [HttpGet]
+    [Authorize(Roles =  "Admin")]
+    public IEnumerable<Contact> Get()
+    {
+       return _contactService.Get();
     }
 }
