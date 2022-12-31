@@ -4,6 +4,8 @@ using OxCAN.Client;
 using MudBlazor.Services;
 using MudBlazor;
 using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components.Authorization;
+
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -22,6 +24,8 @@ builder.Services.AddMudServices(config =>
 });
 
 builder.Services.AddBlazoredLocalStorage();
-
+builder.Services.AddAuthorizationCore();
+builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 await builder.Build().RunAsync();

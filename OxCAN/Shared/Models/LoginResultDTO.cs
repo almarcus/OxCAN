@@ -1,4 +1,4 @@
-public class LoginResult
+public class LoginResultDTO
 {
     public bool Successful { get; set; }
     public string Error { get; set; }

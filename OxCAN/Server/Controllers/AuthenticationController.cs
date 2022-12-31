@@ -23,13 +23,13 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login([FromBody] LoginModel login)
+    public async Task<IActionResult> Login([FromBody] LoginDTO login)
     {
         _logger.LogInformation($"Getting info for user: {login.UserID}");
         
         var user = _userService.Get(login.UserID);
 
-        if (user == null) return BadRequest(new LoginResult { Successful = false, Error = "Could not find user" });
+        if (user == null) return BadRequest(new LoginResultDTO { Successful = false, Error = "Could not find user" });
 
         var claims = new List<Claim>
         {
@@ -54,6 +54,6 @@ public class AuthenticationController : ControllerBase
             signingCredentials: creds
         );
 
-        return Ok(new LoginResult { Successful = true, Token = new JwtSecurityTokenHandler().WriteToken(token) });
+        return Ok(new LoginResultDTO { Successful = true, Token = new JwtSecurityTokenHandler().WriteToken(token) });
     }
 }

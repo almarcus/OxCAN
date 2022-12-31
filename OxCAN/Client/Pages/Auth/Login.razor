@@ -1,0 +1,50 @@
+@page "/login"
+<PageTitle>Login</PageTitle>
+
+<MudContainer Class="mt-16">
+    <MudText Typo="Typo.h1" Align="Align.Center" GutterBottom="true">Login</MudText>
+    <EditForm Model="@login" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <MudGrid Spacing="6">
+            <MudItem xs="12">
+                <MudCard>
+                    <MudCardContent>
+                        <MudGrid>
+                            <MudItem xs="12" lg="6">
+                                <MudTextField Clearable="true" Label="User ID" @bind-Value="login.UserID" For="@(() => login.UserID)" />
+                            </MudItem>
+                        </MudGrid>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+        </MudGrid>
+    </EditForm>
+</MudContainer>
+
+@code
+{
+    public LoginDTO login = new();
+
+    [Inject]
+    public IAuthenticationService AuthenticationService { get; set; }
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+    public bool ShowAuthError { get; set; }
+    public string Error { get; set; }
+
+    public async Task OnValidSubmit()
+    {
+        ShowAuthError = false;
+
+        var result = await AuthenticationService.Login(login);
+        if (!result.Successful)
+        {
+            Error = result.Error;
+            ShowAuthError = true;
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/");
+        }
+    }
+}
