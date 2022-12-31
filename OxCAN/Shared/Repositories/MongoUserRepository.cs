@@ -4,13 +4,13 @@ using MongoDB.Driver;
 
 namespace OxCAN.Shared.Repositories;
 
-public class MongoContactRepository : IContactRepository
+public class MongoUserRepository : IUserRepository
 {
 
     private readonly MongoClient _client;
     private readonly IMongoDatabase _database;
 
-    public MongoContactRepository(IConfiguration config)
+    public MongoUserRepository(IConfiguration config)
     {
         var connectionString = config.GetConnectionString("MongoDB");
         var mongoUrl = new MongoUrl(connectionString);
@@ -20,19 +20,10 @@ public class MongoContactRepository : IContactRepository
         _database = _client.GetDatabase(mongoUrl.DatabaseName);
     }
 
-    public Contact Save(Contact contact)
+
+    public User? Get(string userid)
     {
-        var collection = _database.GetCollection<Contact>("Contact");
-
-        collection.InsertOne(contact);
-
-        return contact;
-    }
-
-    public IEnumerable<Contact> Get()
-    {
-        var collection = _database.GetCollection<Contact>("Contact");
-
-        return collection.AsQueryable<Contact>();
+        var collection = _database.GetCollection<User>("User");
+        return collection.AsQueryable<User>().FirstOrDefault(x => x.UserID == userid);
     }
 }

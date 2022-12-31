@@ -1,8 +1,9 @@
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace OxCAN.Shared.Models;
 
+[BsonIgnoreExtraElements]
 public class Contact
 {
     [Required(ErrorMessage = "First Name is required")]
