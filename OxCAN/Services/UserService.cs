@@ -18,4 +18,15 @@ public class UserService : IUserService
     {
         return _userRepository.Get(userid);
     }
+
+    public User Add(User user)
+    {
+        if(Get(user.UserID) == null)
+        {
+            _userRepository.Add(user);
+            return _userRepository.Get(user.UserID);
+        }
+        else
+            throw new ArgumentException("User already exists");
+    }
 }
