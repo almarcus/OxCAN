@@ -43,7 +43,7 @@
 @code {
     private IEnumerable<Project> futureProjects;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         futureProjects = projectService.Get(Project.Status.Future);
     }}
