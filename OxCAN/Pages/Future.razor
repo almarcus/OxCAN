@@ -1,7 +1,9 @@
 @page "/projects/future"
 @using OxCAN.Shared.Models
+@using OxCAN.Shared.Services
 @using OxCAN.Components
-@inject HttpClient Http
+@inject IProjectService projectService
+
 <PageTitle>Future Work</PageTitle>
 
 <MudContainer>
@@ -39,9 +41,9 @@
 </MudContainer>
 
 @code {
-    private Project[]? futureProjects;
+    private IEnumerable<Project> futureProjects;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        futureProjects = await Http.GetFromJsonAsync<Project[]>($"Projects/{Project.Status.Future}");
+        futureProjects = projectService.Get(Project.Status.Future);
     }}
