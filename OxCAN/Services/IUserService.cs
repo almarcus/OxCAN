@@ -5,4 +5,6 @@ namespace OxCAN.Shared.Services;
 public interface IUserService
 {
     User Get(string userid);
+
+    User Add(User user);
 }

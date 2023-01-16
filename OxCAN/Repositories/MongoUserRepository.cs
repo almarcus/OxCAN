@@ -26,4 +26,11 @@ public class MongoUserRepository : IUserRepository
         var collection = _database.GetCollection<User>("User");
         return collection.AsQueryable<User>().FirstOrDefault(x => x.UserID == userid);
     }
+
+    public void Add(User user)
+    {
+        var collection = _database.GetCollection<User>("User");
+
+        collection.InsertOne(user);
+    }
 }

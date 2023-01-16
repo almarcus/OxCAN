@@ -4,5 +4,7 @@ namespace OxCAN.Shared.Repositories;
 
 public interface IUserRepository
 {
-    User Get(string userid);
+    User? Get(string userid);
+
+    void Add(User user);
 }
