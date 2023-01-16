@@ -1,5 +1,6 @@
 @page "/contact"
-@inject HttpClient Http
+@using OxCAN.Shared.Services
+@inject IContactService ContactService
 @inject ISnackbar Snackbar
 
 
@@ -80,16 +81,17 @@
 
     private async Task OnValidSubmit()
     {
-        
-        var response = await Http.PostAsJsonAsync("Contact", model);
-
-        if(response.IsSuccessStatusCode)
+        try
+        {
+            ContactService.Submit(model);
             Snackbar.Add("Contact info successfully submitted", Severity.Success);
-        else
+        }
+        catch
+        {
             Snackbar.Add("Error submitting contact info", Severity.Error);
+        }
 
         StateHasChanged();
-
     }
 
     private void ResetForm()

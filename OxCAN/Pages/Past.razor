@@ -1,6 +1,8 @@
 @page "/projects/past"
 @using OxCAN.Shared.Models
-@inject HttpClient Http
+@using OxCAN.Shared.Services
+@inject IProjectService projectService
+
 
 <PageTitle>Background Information</PageTitle>
 
@@ -38,9 +40,9 @@
 </MudContainer>
 
 @code {
-    private Project[]? projects;
+    private IEnumerable<Project> projects;
 
     protected override async Task OnInitializedAsync()
     {
-        projects = await Http.GetFromJsonAsync<Project[]>($"Projects/{Project.Status.Past}");
+        projects = projectService.Get(Project.Status.Past);
     }}

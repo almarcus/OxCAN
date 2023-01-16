@@ -4,13 +4,20 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OxCAN.Shared.Repositories;
 using OxCAN.Shared.Services;
+using MudBlazor.Services;
+using Blazored.LocalStorage;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
-builder.Services.AddControllersWithViews();
+// Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGen(option =>
 {
     option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -37,62 +44,58 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
-builder.Services.AddScoped<IProjectService, ProjectService>();
-builder.Services.AddScoped<IContactService, ContactService>();
-builder.Services.AddScoped<IUserService, UserService>();
 
-builder.Services.AddScoped<IContactRepository, MongoContactRepository>();
-builder.Services.AddScoped<IUserRepository, MongoUserRepository>();
+builder.Services.AddTransient<IProjectService, ProjectService>();
+builder.Services.AddTransient<IContactService, ContactService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("Authentication:JwtSecurityKey")))
-        };
-    });
-
-builder.Services.AddAuthorization(options =>
+builder.Services.AddTransient<IContactRepository, MongoContactRepository>();
+builder.Services.AddTransient<IUserRepository, MongoUserRepository>();
+builder.Services.AddMudServices(config =>
 {
-   options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+    //config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomLeft;
+
+    config.SnackbarConfiguration.PreventDuplicates = false;
+    config.SnackbarConfiguration.NewestOnTop = false;
+    config.SnackbarConfiguration.ShowCloseIcon = true;
+    config.SnackbarConfiguration.VisibleStateDuration = 10000;
+    config.SnackbarConfiguration.HideTransitionDuration = 500;
+    config.SnackbarConfiguration.ShowTransitionDuration = 500;
+    //config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
 });
+
+builder.Services.AddBlazoredLocalStorage();
+
+
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseWebAssemblyDebugging();
 
-}
-else
-{
+
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+else
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 
-app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
-
 
 app.UseRouting();
 
-app.MapRazorPages();
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
 
-app.UseAuthentication();
-app.UseAuthorization();
-app.MapControllers();
-app.MapFallbackToFile("index.html");
+
+
 
 app.Run();
 

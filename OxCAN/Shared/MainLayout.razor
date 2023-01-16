@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
-@inject Blazored.LocalStorage.ILocalStorageService localStore
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
 
 <MudThemeProvider IsDarkMode="@_isDarkMode" Theme="_theme"/>
 <MudDialogProvider/>
@@ -45,14 +46,14 @@
     public void ToggleDarkMode(bool toggled)
     {
         _isDarkMode = toggled;
-        localStore.SetItemAsync("isDarkMode",_isDarkMode);
+        localStorage.SetItemAsync("isDarkMode",_isDarkMode);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            _isDarkMode = await localStore.GetItemAsync<bool>("isDarkMode");
+            _isDarkMode = await localStorage.GetItemAsync<bool>("isDarkMode");
             StateHasChanged();
         }
     }
